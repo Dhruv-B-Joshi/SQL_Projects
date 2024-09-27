@@ -1,13 +1,13 @@
 -- Creating the structure of the table
 CREATE TABLE movies (
-	film_name varchar(50),
-	genre varchar(15),
-	studio varchar(25),
-	audience_score int,
-	profit float,
-	rotten_tomatoes integer,
-	gross float,
-	release_year smallint);
+	film_name VARCHAR(50),
+	genre VARCHAR(15),
+	studio VARCHAR(25),
+	audience_score INT,
+	profit FLOAT,
+	rotten_tomatoes INT,
+	gross FLOAT,
+	release_year SMALLINT);
 	
 -- Imported data from local csv file to our table and overviewing it (we can also use COPY table_name FROM)
 SELECT * FROM movies
@@ -23,8 +23,8 @@ and sorting them in descending order of audience score
 */
 SELECT 
 	genre,
-	avg(audience_score) :: numeric(10,2) AS audience_avg, 
-	avg(rotten_tomatoes) :: numeric(10,2) AS rotten_tomatoes_avg
+	AVG(audience_score) :: NUMERIC(10,2) AS audience_avg, 
+	AVG(rotten_tomatoes) :: NUMERIC(10,2) AS rotten_tomatoes_avg
 FROM movies
 GROUP BY genre
 ORDER BY audience_avg DESC;
@@ -43,7 +43,7 @@ Q3 : Find the most profitable studios across the years?
 Calculating and ordering the sum of profit and grouping the data by studios while
 removing inappropriate data (Independent studio films)
 */
-SELECT studio, sum(profit) :: numeric(10,2) as sum_of_profit
+SELECT studio, SUM(profit) :: NUMERIC(10,2) AS sum_of_profit
 FROM movies
 WHERE (studio!='Independent')
 GROUP BY studio
@@ -55,8 +55,8 @@ WHERE studio ='Independent'
 ORDER BY profit DESC;
 
 /* Profit of studios by year */
-SELECT studio, release_year, profit :: numeric(10,2) ,
-sum(profit) over(partition BY studio) AS sum_of_profit
+SELECT studio, release_year, profit :: NUMERIC(10,2) ,
+SUM(profit) OVER(partition BY studio) AS sum_of_profit
 FROM movies
 WHERE studio!= 'Independent'
 ORDER BY sum_of_profit DESC;
@@ -65,12 +65,12 @@ ORDER BY sum_of_profit DESC;
    Here we will use crosstab to get the desired result*/
 CREATE extension tablefunc;
 SELECT * FROM crosstab 
-	('select studio, release_year, sum(profit) :: numeric(10,2) as sp 
-	 from movies
-	 where studio != ''Independent''
-	 group by studio, release_year
-	 order by 1') 
-AS Yearwiseprofit(Studio varchar(25), Year_2007 numeric(10,2),Year_2008 numeric(10,2),Year_2009 numeric(10,2),Year_2010 numeric(10,2),Year_2011 numeric(10,2));
+	('SELECT studio, release_year, SUM(profit) :: NUMERIC(10,2) as sp 
+	 FROM movies
+	 WHERE studio != ''Independent''
+	 GROUP BY studio, release_year
+	 ORDER BY 1') 
+AS Yearwiseprofit(Studio VARCHAR(25), Year_2007 NUMERIC(10,2),Year_2008 NUMERIC(10,2),Year_2009 NUMERIC(10,2),Year_2010 NUMERIC(10,2),Year_2011 NUMERIC(10,2));
 
 
 
