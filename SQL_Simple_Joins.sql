@@ -1,52 +1,53 @@
-create table authors (
-id_ smallint,
-FirstName varchar(10),
-LastName varchar(10),
-primary key(id_)
+-- Creating the required tables
+CREATE TABLE authors (
+id_ SMALLINT,
+FirstName VARCHAR(10),
+LastName VARCHAR(10),
+PRIMARY KEY(id_)
 );
 
-insert into authors values
+INSERT INTO authors VALUES
 (11, 'Ellen', 'Writter'),(12, 'Olga', 'Savelivea'),(13, 'Jack', 'Smart'),(14, 'Donald', 'Brain'),(15, 'Yao', 'Dou');
 
-select * from authors;
+SELECT * FROM authors;
 
-create table editors (
-id_ smallint,
-FirstName varchar(10),
-LastName varchar(10),
-primary key (id_));
+CREATE TABLE editors (
+id_ SMALLINT,
+FirstName VARCHAR(10),
+LastName VARCHAR(10),
+PRIMARY KEY(id_));
 
-insert into editors values 
+INSERT INTO editors VALUES 
 (21, 'Daniel', 'Brown'),(22, 'Mark', 'Johnson'),(23, 'Marina', 'Evans'),
 (24, 'Catherine', 'Roberts'),(25, 'Sebastian', 'Wright'),(26, 'Barbra', 'Jones'),(27, 'Mathew', 'Smith');
 
-select * from editors;
+SELECT * FROM editors;
 
-create table translators (
-id_ smallint,
-FirstName varchar(10),
-LastName varchar(10),
-primary key (id_));
+CREATE TABLE translators (
+id_ SMALLINT,
+FirstName VARCHAR(10),
+LastName VARCHAR(10),
+PRIMARY KEY(id_));
 
-insert into translators values 
+INSERT INTO translators VALUES 
 (31, 'Ira', 'Davis'),(32, 'Ling', 'Weng'),(33, 'Kristian', 'Green'),(34, 'Roman', 'Edwards');
 
-select * from translators;
+SELECT * FROM translators;
 
-create table books (
-Book_id smallint,
-Title varchar(25),
-Book_type varchar(10),
-AuthorID smallint,
-EditorID smallint,
-TranslatorID smallint, 
-primary key (Book_id),
-foreign key (AuthorID) references authors(id_) on delete set null,
-foreign key (EditorID) references editors(id_) on delete set null,
-foreign key (TranslatorID) references translators(id_) on delete set null
+CREATE TABLE books (
+Book_id SMALLINT,
+Title VARCHAR(25),
+Book_type VARCHAR(10),
+AuthorID SMALLINT,
+EditorID SMALLINT,
+TranslatorID SMALLINT, 
+PRIMARY KEY(Book_id),
+FOREIGN KEY(AuthorID) REFERENCES authors(id_) ON DELETE SET NULL,
+FOREIGN KEY(EditorID) REFERENCES editors(id_) ON DELETE SET NULL,
+FOREIGN KEY(TranslatorID) REFERENCES translators(id_) ON DELETE SET NULL
 );
 
-insert into books values 
+INSERT INTO books VALUES 
 (1, 'Time to grow up!', 'Original', 11, 21, null),
 (2, 'Your Trip', 'Translated', 15, 22, 32),
 (3, 'Lovely Love', 'Original', 14, 24, null),
@@ -56,7 +57,7 @@ insert into books values
 (7, 'Applied AI', 'Translated', 13, 23, 34),
 (8, 'My Last Book', 'Original', 11, 27, null);
 
-select * from books;
+SELECT * FROM books;
 
 -- #1: Showing books with their authors - Inner Join
 
