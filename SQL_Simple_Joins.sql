@@ -48,14 +48,14 @@ FOREIGN KEY(TranslatorID) REFERENCES translators(id_) ON DELETE SET NULL
 );
 
 INSERT INTO books VALUES 
-(1, 'Time to grow up!', 'Original', 11, 21, null),
+(1, 'Time to grow up!', 'Original', 11, 21, NULL),
 (2, 'Your Trip', 'Translated', 15, 22, 32),
-(3, 'Lovely Love', 'Original', 14, 24, null),
-(4, 'Dream Your Life', 'Original', 11, 24, null),
+(3, 'Lovely Love', 'Original', 14, 24, NULL),
+(4, 'Dream Your Life', 'Original', 11, 24, NULL),
 (5, 'Oranges', 'Translated', 12, 25, 31),
 (6, 'Your Happy Life', 'Translated', 15, 22, 33),
 (7, 'Applied AI', 'Translated', 13, 23, 34),
-(8, 'My Last Book', 'Original', 11, 27, null);
+(8, 'My Last Book', 'Original', 11, 27, NULL);
 
 SELECT * FROM books;
 
