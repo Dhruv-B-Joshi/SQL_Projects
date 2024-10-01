@@ -3,11 +3,11 @@
 SELECT * FROM grants
 LIMIT 5;
 
--- First let us find out which constituencies has recieved the highest amount of grants.
-SELECT constituency, SUM(award_amount) AS tot_grant
+-- First let us find out which constituencies has recieved the most number of grants.
+SELECT constituency, COUNT(constituency) AS num_grant
 FROM grants 
 GROUP BY constituency
-ORDER BY tot_grant DESC
+ORDER BY num_grant DESC
 LIMIT 5;
 
 -- Let's check the amount of grant recieved by the constituencies with low population.
@@ -17,7 +17,7 @@ GROUP BY constituency, population
 ORDER BY population, tot_grant DESC
 LIMIT 5;
 
--- Let us also check the grant which provided the least and most funding_per_head 
+-- Let us also check the grant which provided the least and most funding_per_head.
 (SELECT applicant, constituency, funder, programme, award_amount, funding_per_head
 FROM grants
 ORDER BY funding_per_head
@@ -55,7 +55,7 @@ LIMIT 5;
 
 /* We can note that the organizations classified as Third Sector has cumitatively recieved the maximum 
 amount of grant amount, 6 times that of it's next member Public Sector - Local Government */
--- Let's see which organization's have recieved more amount of grants New, Mid, Old or Very Old
+-- Let's see which organization's have recieved more amount of grants New, Mid, Old or Very Old.
 
 SELECT CASE
 		WHEN org_age < 10 THEN 'New'
@@ -67,8 +67,8 @@ FROM grants
 GROUP BY Antiquity
 ORDER BY num_grants DESC;
 
--- Almost twice the amount of grants have been awarded to organizations which are about 10-25 years old, compared to others
--- Finally let's add a new column duration to the table showcasing the time delay between the grant awardee decided and announced
+-- Almost twice the amount of grants have been awarded to organizations which are about 10-25 years old, compared to others.
+-- Finally let's add a new column duration to the table showcasing the time delay between the grant awardee decided and announced.
 ALTER TABLE grants ADD duration INTEGER DEFAULT 0;
 UPDATE grants SET duration = announcement_date - decision_date;
 
@@ -76,10 +76,10 @@ UPDATE grants SET duration = announcement_date - decision_date;
 SELECT COUNT(*) FROM grants WHERE duration < 0;
 
 -- We can see that there is a single instance where grant is announced before desicion. 
--- Now let's check the range of delay
+-- Now let's check the range of delay.
 SELECT MAX(duration), AVG(duration), MIN(duration) FROM grants;
 
--- Let's check which of the funder is usually late in awarding grants 
+-- Let's check which of the funder is usually late in awarding grants.
 SELECT funder, AVG(duration) as avg_delay
 FROM grants
 GROUP BY funder
