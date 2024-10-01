@@ -93,4 +93,3 @@ FROM (
 	FROM app_store
 ) as top_
 WHERE top_.rank_ = 1;
--- We got the top apps from all the 23 genre, which we can consider as a benchmark and competitor while developing our own app.
