@@ -1,7 +1,7 @@
 # SQL_Projects
 
 ## P3 App Analysis-
-  Conducting a thorough analysis of various app's data to deliver actionalble insights for (pseudo) stakeholder, who is an passionate app developer who wants to penetrate the concentrated mobile applications market and needs insghts on questions like: genre-wise concentration of apps, pricing strategy, factors that effect user's likability and market leader to be set as benchmark. 
+  Conducting a thorough analysis of various app's data to deliver actionalble insights for (pseudo) stakeholder, who is an passionate app developer aiming to penetrate the concentrated mobile applications market and needs insghts on questions like: genre-wise concentration of apps, pricing strategy, factors that effect user's likability and market leader to be set as benchmark. 
 
   Here we use 2 datasets which consists of various app metrices like name, rating, genre, languages supported, version, app size, price, app description etc. By clearly framing the problem statement we deliver pecise solutions for our stakeholder using advanced SQL queries.
 
