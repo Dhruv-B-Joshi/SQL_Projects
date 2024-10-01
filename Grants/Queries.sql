@@ -1,19 +1,16 @@
 -- We have already created the table structure and imported the required data.
 -- Now let us get an overview of it.
-COPY grants from ''
-with csv header delimiter ',';
-
 SELECT * FROM grants
 LIMIT 5;
 
--- First let us find out which constituencies has recieved the highst amount of grants.
+-- First let us find out which constituencies has recieved the highest amount of grants.
 SELECT constituency, SUM(award_amount) AS tot_grant
 FROM grants 
 GROUP BY constituency
 ORDER BY tot_grant DESC
 LIMIT 5;
 
--- Let's check the amount of grant recieved to low population of the constituency.
+-- Let's check the amount of grant recieved by the constituencies with low population.
 SELECT constituency, population, SUM(award_amount) AS tot_grant
 FROM grants
 GROUP BY constituency, population
@@ -33,7 +30,7 @@ LIMIT 5);
 
 /* We can observe that the funder and programme for all the low funding_per_head is the same 
 also the funder for the grants with highest funding_per_head is also the same */
--- Let us now check the programme through which each funder has awarded biggest grant.
+-- Let us now check which funder is the biggest contributor.
 
 SELECT funder, SUM(award_amount) AS tot_award
 FROM grants
@@ -41,14 +38,13 @@ GROUP BY funder
 ORDER BY tot_award DESC;
 
 -- As the name suggest the Big Lottery Fund is the biggest contributor and Micro Grants Joint Pot is the smallest.
--- Now let us check the least amount granted through a programme by each funder
+-- Now let us check the least amount granted through a programme by each funder.
 SELECT funder, programme, award_amount
 FROM (SELECT funder, programme, award_amount,
 	 DENSE_RANK() OVER(PARTITION BY funder
 				ORDER BY award_amount) AS rank_
 	  FROM grants) AS big
 WHERE big.rank_=1;
-
 
 -- Let's find out the type of organization to get the highest amount of grant.
 SELECT org_type, SUM(award_amount)  AS tot_grant
